@@ -10,7 +10,9 @@ def test_fetch_by_id_raise_when_not_found(customer_repository):
 
 
 def test_store_stores_customer_with_id(customer_repository):
-    nicole = Customer(customer_id='123', first_name="Nicole", surname="Forsgren")
+    nicole = Customer(customer_id='123',
+                      first_name="Nicole",
+                      surname="Forsgren")
     jez = Customer(customer_id='321', first_name="Jez", surname="Humble")
     customer_repository.store(nicole)
     customer_repository.store(jez)
