@@ -29,10 +29,16 @@ make lint
 ### To run tests
 
 ```bash
-make tests
+make test
 ```
 
 ### To run the service locally
+Before starting the application locally you must create Google Service Account and store credentials json file locally to authenticate.
+
+Once you have stored the credentials locally, export it to the environment variable as below:
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=[PATH_TO_CREDENTIALS_FILE]/[SERVICE_ACCOUNT_CREDENTIALS_FILENAME].json 
+```
 
 ```bash
 make run
@@ -42,6 +48,7 @@ make run
 
 This repository contains a cloudbuild.yaml file to deploy this service on to Cloud Run:
 
+Execute below command to trigger the Cloud Build deployment through CLI.
 ```bash
 gcloud builds submit --substitutions=_CUSTOMER_NAMESPACE="[CUSTOMER_NAMESPACE]"
 ```
@@ -50,4 +57,5 @@ where [CUSTOMER_NAMESPACE] is the name of the Firestore collection that contains
 
 ### API documentation
 
-You can access the API documentation by launching the application and visiting [swagger ui](http://localhost:5000/docs/)
+You can access the API documentation by launching the application and visiting [swagger ui](http://localhost:5000/docs/).
+For accessing in Cloud Run append ```/docs/``` after the endpoint exposed by Cloud Run service.
