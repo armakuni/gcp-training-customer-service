@@ -1,6 +1,32 @@
 # GCP Training Customer Service
 
-This is a RESTful API which can store and retrieve customer information using a Firestore database.
+This Microservice is a RESTful API which can store and retrieve customer information using a Firestore database. The following two endpoints are available:
+1. POST - http://localhost:5000/customers/ to create a customer and accept below request body:
+ ```json
+ {
+"firstName" : "Roger",
+"surname" : "Federer"
+}
+ ```
+ Response:
+  ```json
+  {
+    "customerId": "obrJrtC8bFSXdAmpcmKe",
+    "firstName": "Roger",
+    "surname": "Federer"
+}
+ ```
+ 2. GET - http://localhost:5000/customers/{CUSTOMER_ID}  
+   Response:
+   ```json
+   {
+    "customerId": "obrJrtC8bFSXdAmpcmKe",
+    "firstName": "Roger",
+    "surname": "RajFedererput"
+}
+ ```
+
+Fork this repository in your github account to continue the rest of exercise.
 
 ### Requirements
 
@@ -46,6 +72,8 @@ make run
 
 ### Deployment
 
+#### CLI Deployment
+
 This repository contains a cloudbuild.yaml file to deploy this service on to Cloud Run:
 
 Execute below command to trigger the Cloud Build deployment through CLI.
@@ -53,7 +81,24 @@ Execute below command to trigger the Cloud Build deployment through CLI.
 gcloud builds submit --substitutions=_CUSTOMER_NAMESPACE="[CUSTOMER_NAMESPACE]"
 ```
 
-where [CUSTOMER_NAMESPACE] is the name of the Firestore collection that contains the customer information.
+where [CUSTOMER_NAMESPACE] is the name of the Firestore collection that stores the customer information.
+* Makes sure that variable name matches with what is been defined in the "cloudbuild.yaml". If you wish to change the variable name then you must replace all the respective references in the [cloudbuild.yaml](/cloudbuild.yaml) as well.
+* Make a note of the value specified as we will need it while deploying other Microservices.
+* If you do not specify the substitution parameters (to know more about substitutions [click here](https://cloud.google.com/cloud-build/docs/configuring-builds/substitute-variable-values)) the clouldbuild will use default value specified in the CloudBuild.yaml i.e., "customer".
+
+
+#### Setup Cloud Build Trigger to deploy Microservice on each commit
+
+Now let us setup a Cloud Build Trigger to deploy the changes automatically with each commit.
+
+1. Navigate to the Cloud Build page in console and click ```Triggers```
+2. Click ```Create Trigger``` and should open a new page.
+3. Enter all the information highlighted in below image.
+4. Set the substitutions variables appropriately. As explained earlier if you wish you change the variable name you must change in the "cloudbuild.yaml" as well.
+5. The value specified here will override any default value defined in the "cloudbuild.yaml". If you wish to change the value make a note of it.
+![](images/cloudbuild-trigger-substitution.png)
+6. Click Create Trigger and your trigger should be ready to use.
+7. Make a commit and observe Cloud Build to confirm the trigger is working fine.
 
 ### API documentation
 
