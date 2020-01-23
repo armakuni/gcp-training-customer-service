@@ -1,4 +1,4 @@
-# Customer Service
+# GCP Training Customer Service
 
 This is a RESTful API which can store and retrieve customer information using a Firestore database.
 
