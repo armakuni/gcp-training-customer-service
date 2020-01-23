@@ -33,3 +33,4 @@ substitutions:
   _SERVICE_NAME: gcp-training-customer-service
   _REGION: europe-west1
   _CUSTOMER_NAMESPACE: customers
+  
